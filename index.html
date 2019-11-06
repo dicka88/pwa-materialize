@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#00897B">
 
     <link rel="stylesheet" href="./css/materialize.min.css">
+    <link rel="manifest" href="./manifest.json">
+    
 
     <title>CRUD PWA</title>
 </head>
@@ -27,6 +30,26 @@
 
         </div>
     <!-- end content -->
+
+    <!-- service worker -->
+    <script>
+        // REGISTER SERVICE WORKER
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+            navigator.serviceWorker
+                .register("./js/service-worker.js")
+                .then(function() {
+                console.log("SW registered");
+                })
+                .catch(function() {
+                console.log("SW failed");
+                });
+            });
+        } else {
+            console.log("ServiceWorker belum didukung browser ini.");
+        }
+    </script>
+    <!-- end service worker -->
 </body>
 <script src="./js/jquery.min.js"></script>
 <script src="./js/materialize.min.js"></script>

@@ -1,0 +1,16 @@
+{
+    "name": "PWA - Materialize",
+    "short_name": "PWA",
+    "description": "Tutorial from Dicoding",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#00897B",
+    "theme_color": "#00897B",
+    "icons": [
+        {
+            "src": "./img/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
