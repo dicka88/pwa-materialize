@@ -1,0 +1,19 @@
+.table{
+    border-radius: 10px;
+    margin-top: 4em;
+    border-top: 1px black solid;
+    border-left: 1px black solid;
+    border-right: 1px black solid;
+    border-bottom: 1px black solid;
+}
+
+.table-grey > thead > tr{
+    background-color: rgb(110, 200, 191);
+}
+
+.table > thead > tr > td{
+    text-align: center
+}
+.table > tbody > tr > td{
+    text-align: center
+}
