@@ -5,11 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     var page = window.location.hash.substr(1);
     if(page === ''){
         page = "pages/home.html";
+    }else if(page == 'list_name'){
+        loadApi('GET', page);
+        return;
     }else{
         page = "pages/"+page+".html";
     }
-
-    console.log(page);
     
     loadPage(page);
 });
@@ -33,11 +34,12 @@ const loadNav = () => {
 
 $(document).ready(function(){
     $('.sidenav > li > a, .topnav > li > a').each(function(){
-        $(this).on('click', function(){
+        $(this).click(function(){
             let sidenav = $('.sidenav');
             M.Sidenav.getInstance(sidenav).close();
 
             let page = $(this).attr('href').substr(1);
+            if(page=='list_name') return;
             loadPage("pages/"+page+".html");
         });
     });
@@ -46,11 +48,32 @@ $(document).ready(function(){
 const content = $('#body-content');
 
 function loadPage(page) {
+    let title = '';
+    switch(page){
+        case 'pages/home.html':
+            title = 'Home';
+            break;
+        case 'pages/about.html':
+            title = 'About';
+            break;
+        case 'pages/add_data.html':
+            title = 'Add Person';
+            break;
+        case 'pages/contact.html':
+            title = 'Contact';
+            break;
+        case 'pages/list_name.html':
+            title = 'List Name';
+            break;
+        default:
+            title = 'Unknown';
+    }
+    
     $.ajax({
         method: 'get',
         url: page,
         success: (response, text, xhr) => {
-            
+            $('.brand-logo').html(title);
             const code = xhr.status;
             
             switch(code){
@@ -80,6 +103,7 @@ function loadPage(page) {
 }
 
 const loadApi = (target, link) => {
+    $('.brand-logo').html('List Name');
     link = 'https://api.kangkode.site/v1/'+link;
     $.ajax({
         method: target,
@@ -90,10 +114,9 @@ const loadApi = (target, link) => {
         success: response => {
             
                     let parsing = JSON.parse(response);
-                    //console.log(parsing);
                     
                     var table = '<table>';
-		    let i = 1
+		            let i = 1;
                     parsing.forEach((item, id)=>{
                         table += `<tr>
                                 <td>${i++}</td>
