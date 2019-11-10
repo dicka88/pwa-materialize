@@ -1,56 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#00897B">
 
     <link rel="stylesheet" href="./css/materialize.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="manifest" href="./manifest.json">
     
-
     <title>CRUD PWA</title>
 </head>
 <body>
     <!-- navigation -->
-        <nav class="teal lighten-1" role="navigation">
-            <div class="nav-wrapper container">
-                <a href="#" class="brand-logo" id="logo-container">PWA</a>
-                <a href="#" class="sidenav-trigger" data-target="nav-mobile">=</a>
+    <nav class="teal lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo" id="logo-container">PWA</a>
+            <a href="#" class="sidenav-trigger" data-target="nav-mobile">&#9776;</a>
 
-                <ul class="topnav right hide-on-med-and-down"></ul>
-                <ul class="sidenav" id="nav-mobile"></ul>
-            </div>
-        </nav>
+            <ul class="topnav right hide-on-med-and-down"></ul>
+            <ul class="sidenav" id="nav-mobile"></ul>
+        </div>
+    </nav>
     <!-- end navigation -->
 
     <!-- content container -->
-        <div class="container" id="body-content">
+    <div class="container" id="body-content">
 
-        </div>
+    </div>
     <!-- end content -->
 
     <!-- service worker -->
-    <script>
-        //REGISTER SERVICE WORKER
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", function() {
-            navigator.serviceWorker
-                .register("./js/sw.js")
-                .then(function() {
-                console.log("SW registered");
-                })
-                .catch(function() {
-                console.log("SW failed");
-                });
-            });
-        } else {
-            console.log("ServiceWorker belum didukung browser ini.");
-        }
+    <script src="./sw-reg.js">
+        
     </script>
     <!-- end service worker -->
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/materialize.min.js"></script>
     <script src="./js/custom.js"></script>

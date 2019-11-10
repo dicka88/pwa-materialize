@@ -26,12 +26,13 @@ const loadNav = () => {
         url: 'nav.html',
         success: response => {
             $('.sidenav').html(response);
+            $('.topnav').html(response);
         }
     });
 };
 
 $(document).ready(function(){
-    $('.sidenav > li > a').each(function(){
+    $('.sidenav > li > a, .topnav > li > a').each(function(){
         $(this).on('click', function(){
             let sidenav = $('.sidenav');
             M.Sidenav.getInstance(sidenav).close();
@@ -86,12 +87,8 @@ const loadApi = (target, link) => {
         beforeSend: function(){
           content.html("wait...");  
         },
-        success: (response, text, xhr) => {
+        success: response => {
             
-            const code = xhr.status;
-            
-            switch(code){
-                case 200:
                     let parsing = JSON.parse(response);
                     //console.log(parsing);
                     
@@ -106,13 +103,7 @@ const loadApi = (target, link) => {
                     });
                     
                     content.html(table);
-                    break;
-                case 404:
-                    content.html("<p>404 Error not found</p>");
-                    break;
-                default:
-                    content.html("<p>URL not valid</p>");
-            }
+
         },
         error: function(log){
             switch(log.status){
