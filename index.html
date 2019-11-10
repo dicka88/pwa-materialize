@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#00897B">
@@ -34,12 +34,11 @@
 
     <!-- service worker -->
     <script>
-        // REGISTER SERVICE WORKER
-        console.log(navigator)
+        //REGISTER SERVICE WORKER
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function() {
             navigator.serviceWorker
-                .register("./js/service-worker.js")
+                .register("./js/sw.js")
                 .then(function() {
                 console.log("SW registered");
                 })
@@ -52,9 +51,9 @@
         }
     </script>
     <!-- end service worker -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/materialize.min.js"></script>
+    <script src="./js/custom.js"></script>
 </body>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/materialize.min.js"></script>
-<script src="./js/custom.js"></script>
 
 </html>

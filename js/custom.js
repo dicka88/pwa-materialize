@@ -93,12 +93,13 @@ const loadApi = (target, link) => {
             switch(code){
                 case 200:
                     let parsing = JSON.parse(response);
-                    console.log(parsing);
+                    //console.log(parsing);
                     
                     var table = '<table>';
+		    let i = 1
                     parsing.forEach((item, id)=>{
                         table += `<tr>
-                                <td>${item.id}</td>
+                                <td>${i++}</td>
                                 <td>${item.name}</td>
                                 <td>${item.teknik}</td>          
                         </tr>`;
@@ -128,3 +129,34 @@ const loadApi = (target, link) => {
     });
     M.Sidenav.getInstance($('.sidenav')).close();
 };
+
+const addData = () => {
+    let name = document.getElementById('name').value
+    let teknik = document.getElementById('teknik').value
+
+    if(name === '' || teknik === ''){
+        alert("pastikan semua data terisi");
+        return true;
+    }else{
+        let link = "https://api.kangkode.site/v1/add_name";
+        $.ajax({
+            method: 'post',
+            url: link,
+            data: {
+                name: name,
+                teknik: teknik
+            },
+            dataType: 'json',
+            success: result => {
+                if(result.response){
+                    alert("sukses menambahkan nama");
+                    $('#name').val('')
+                    $('#teknik').val('')
+                }else{
+                    alert("failed to add name, or check your conncection");
+                }
+            }
+        })
+    }
+    
+}
