@@ -1,53 +1,25 @@
-document.addEventListener("DOMContentLoaded", () => {
+$(document).ready(function(){
     var elems = document.querySelectorAll(".sidenav");
     M.Sidenav.init(elems);
     loadNav();
     var page = window.location.hash.substr(1);
     if(page === ''){
         page = "pages/home.html";
+            loadPage(page);
     }else if(page == 'list_name'){
         loadApi('GET', page);
         return;
     }else{
         page = "pages/"+page+".html";
+            loadPage(page);
     }
-    
-    loadPage(page);
-});
-
-function route(elem){
-    let page = elem.attr('href').substr(1);
-    loadPage("pages/"+page+".html");
-    M.Sidenav.getInstance($('.sidenav')).close();
-}
-
-const loadNav = () => {
-    $.ajax({
-        method: 'get',
-        url: 'nav.html',
-        success: response => {
-            $('.sidenav').html(response);
-            $('.topnav').html(response);
-        }
-    });
-};
-
-$(document).ready(function(){
-    $('.sidenav > li > a, .topnav > li > a').each(function(){
-        $(this).click(function(){
-            let sidenav = $('.sidenav');
-            M.Sidenav.getInstance(sidenav).close();
-
-            let page = $(this).attr('href').substr(1);
-            if(page=='list_name') return;
-            loadPage("pages/"+page+".html");
-        });
-    });
 });
 
 const content = $('#body-content');
 
-function loadPage(page) {
+const loadPage = page =>  {
+    if(page=='pages/list_name.html') return;
+    M.Sidenav.getInstance($('.sidenav')).close();
     let title = '';
     switch(page){
         case 'pages/home.html':
@@ -57,7 +29,7 @@ function loadPage(page) {
             title = 'About';
             break;
         case 'pages/add_data.html':
-            title = 'Add Person';
+            title = 'Add';
             break;
         case 'pages/contact.html':
             title = 'Contact';
@@ -100,7 +72,34 @@ function loadPage(page) {
             }
         } 
     });
+};
+
+function route(elem){
+    let page = elem.attr('href').substr(1);
+    loadPage("pages/"+page+".html");
+    M.Sidenav.getInstance($('.sidenav')).close();
 }
+
+const loadNav = () => {
+    $.ajax({
+        method: 'get',
+        url: 'nav.html',
+        success: response => {
+            $('.sidenav').html(response);
+            $('.topnav').html(response);
+        }
+    }).then(()=>{
+        $('.sidenav li a, .topnav li a').each(function(){
+        $(this).on('click', function(){
+            let sidenav = $('.sidenav');
+            M.Sidenav.getInstance(sidenav).close();
+
+            let page = $(this).attr('href').substr(1);
+            loadPage("pages/"+page+".html");
+        });
+    });
+    })
+};
 
 const loadApi = (target, link) => {
     $('.brand-logo').html('List Name');
@@ -145,8 +144,8 @@ const loadApi = (target, link) => {
 };
 
 const addData = () => {
-    let name = document.getElementById('name').value
-    let teknik = document.getElementById('teknik').value
+    let name = document.getElementById('name').value;
+    let teknik = document.getElementById('teknik').value;
 
     if(name === '' || teknik === ''){
         alert("pastikan semua data terisi");
@@ -163,14 +162,14 @@ const addData = () => {
             dataType: 'json',
             success: result => {
                 if(result.response){
-                    alert("sukses menambahkan nama");
-                    $('#name').val('')
-                    $('#teknik').val('')
+                    $('body').append('<center>Success</center>');
+                    $('#name').val('');
+                    $('#teknik').val('');
                 }else{
                     alert("failed to add name, or check your conncection");
                 }
             }
-        })
+        });
     }
     
-}
+};
